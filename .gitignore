@@ -1,0 +1,44 @@
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Library/
+ProjectSettings/
+Build/
+Logs/
+Packages/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+/.vs/
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+/Assets/Plugins/IOS/Hyphenate.framework
+Assets/Plugins/IOS/Hyphenate.framework.meta
+Assets/Samples.meta
+/物理场系统
+/apk
+/特效
+/动画弃用
+/ag_ios
