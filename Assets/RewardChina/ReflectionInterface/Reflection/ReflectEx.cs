@@ -51,8 +51,11 @@ namespace Refinter
         public static object FindIMonoImpl(Type type)
         {
             var f = Resources.FindObjectsOfTypeAll(type);
-            if (f.Length > 0)
-                return f[0];
+            foreach (var item in f)
+            {
+                if ((item as MonoBehaviour).gameObject.scene.IsValid())
+                    return item;
+            }
             return null;
         }
         public static Type FindImpl(Type inter)

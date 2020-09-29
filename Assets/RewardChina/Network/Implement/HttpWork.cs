@@ -29,7 +29,8 @@ namespace Refinter.Net
 
         public Task<string> PostStr(string url, string data)
         {
-            var resp = client.PostAsync(url,new StringContent(data));
+            var m = new StringContent(data,System.Text.Encoding.UTF8, "application/json");
+            var resp = client.PostAsync(url,m);
             return resp.Result.Content.ReadAsStringAsync();
         }
     }

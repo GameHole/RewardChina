@@ -11,18 +11,23 @@ namespace RewardChina
         IRewardDialog dia;
         IRewardBtn btn;
         IUserData data;
-        public void Show()
+        IRemoteApi remote;
+        public async void Show()
         {
-            dia.Open(100);
+            var info = await remote.GetGold(1);
+            dia.Open(info.money);
             btn.ShowBtnType(1);
-            text.SetValues("50");
-            dia.onCloseBtnClick = () =>
+            text.SetValues(info.other.ToString());
+            int money = info.money * info.other;
+            dia.onCloseBtnClick = async () =>
             {
-                data.money += 100;
+                await remote.SetGold(info.money);
+                data.money += info.money;
             };
-            btn.onClick = () =>
+            btn.onClick = async() =>
             {
-                data.money += 100 * 50;
+                await remote.SetGold(money);
+                data.money += money;
                 onReward?.Invoke();
                 dia.onCloseBtnClick = null;
                 dia.Close();

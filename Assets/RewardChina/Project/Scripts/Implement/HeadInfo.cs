@@ -1,0 +1,39 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HeadInfo : IHeadInfo
+{
+    IHttp http;
+    public string nick { get; set; } = "金木研";
+    public string headUrl { get; set; } = "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1933974259,465834150&fm=26&gp=0.jpg";
+    Sprite sprite;
+    bool isInited;
+    void tryInit()
+    {
+        if (isInited) return;
+        isInited = true;
+        loadHead();
+    }
+    async void loadHead()
+    {
+        var data = await http.GetBytes(headUrl);
+        sprite = convertSprite(data);
+    }
+    Sprite convertSprite(byte[] data)
+    {
+        Texture2D texture = new Texture2D(512, 512, UnityEngine.Experimental.Rendering.DefaultFormat.LDR, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
+        texture.LoadImage(data);
+        Sprite sprite = Sprite.Create(texture, new Rect() { x = 0, y = 0, width = texture.width, height = texture.height }, new Vector2(0.5f, 0.5f));
+        return sprite;
+    }
+    public bool tryGetHeadImg(out Sprite sprite)
+    {
+        tryInit();
+        sprite = default;
+        if (this.sprite == null)
+            return false;
+        sprite = this.sprite;
+        return true;
+    }
+}

@@ -11,16 +11,18 @@ namespace RewardChina
         IUserData data;
         IRewardDialog dialog;
         IRewardBtn rewardBtn;
-        public void Show()
+        IRemoteApi remote;
+        public async void Show()
         {
-            dialog.Open(100);
+            var info = await remote.GetGold(0);
+            dialog.Open(info.money);
             rewardBtn.ShowBtnType(0);
-            rewardBtn.onClick = () =>
+            rewardBtn.onClick = async() =>
             {
-                data.money += 100;
-                Debug.Log("aa");
                 dialog.Close();
                 onReward?.Invoke();
+                if (await remote.SetGold(info.money) == 0)
+                    data.money += info.money;
             };
         }
     }

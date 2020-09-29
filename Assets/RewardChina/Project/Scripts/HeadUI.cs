@@ -1,0 +1,28 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace RewardChina
+{
+    public class HeadUI : MonoBehaviour
+    {
+        IHeadInfo info;
+        public Image head;
+        public Sprite defHead;
+        public Text nickTxt;
+        private void Update()
+        {
+            if(info.tryGetHeadImg(out Sprite headSp))
+            {
+                head.sprite = headSp;
+            }
+            else
+            {
+                head.sprite = defHead;
+            }
+            nickTxt.text = info.nick;
+        }
+    }
+}
+

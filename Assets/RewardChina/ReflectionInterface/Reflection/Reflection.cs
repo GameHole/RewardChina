@@ -42,7 +42,7 @@ namespace Refinter
             }
             foreach (var obj in Resources.FindObjectsOfTypeAll<MonoBehaviour>())
             {
-                if (obj.GetType().FullName.Contains("UnityEngine")) continue;
+                if (!obj.gameObject.scene.IsValid() || obj.GetType().FullName.Contains("UnityEngine")) continue;
                 if (monoInjected.ContainsKey(obj)) continue;
                 monoInjected.Add(obj, true);
                 Inject(obj);

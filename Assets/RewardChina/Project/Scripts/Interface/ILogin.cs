@@ -4,9 +4,17 @@ using System.Threading.Tasks;
 using UnityEngine;
 namespace RewardChina
 {
+    public interface IUrlApi : IInterface
+    {
+        string getApi(string key);
+    }
     public interface ILogin : IInterface
     {
-        Task Login(string url,string data);
+        Task<bool> Login();
+    }
+    interface INetInfo : IInterface
+    {
+        string openid { get; set; }
     }
     public interface IUserData:IInterface
     {
