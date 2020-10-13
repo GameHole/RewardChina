@@ -30,7 +30,7 @@ namespace RewardChina
                 token = releaseToken;
             }
             usls.Add("login", "smAPI/sm/login");
-            usls.Add("reward", "smAPI/sm/config");
+            usls.Add("reward", "smAPI/inspire/config");
             usls.Add("setgold", "smAPI/sm/getcoin");
             usls.Add("getgold", "smAPI/sm/userdetails");
             usls.Add("update", "smAPI/sm/userinfo");

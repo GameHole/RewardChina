@@ -29,6 +29,7 @@ namespace RewardChina
             jo.Add("openId", info.openid);
             jo.Add("game", Application.identifier);
             JObject retJo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(url.getApi("reward"), JsonConvert.SerializeObject(jo)));
+            Debug.Log(url.getApi("reward"));
             Debug.Log(retJo);
             var ret = new RemoteMoneyInfo();
             int code = retJo.Value<int>("code");

@@ -13,6 +13,7 @@ namespace Refinter
         static Dictionary<MonoBehaviour, bool> monoInjected = new Dictionary<MonoBehaviour, bool>();
         void Awake()
         {
+            DontDestroyOnLoad(gameObject);
             InjectSence();
             SceneManager.sceneLoaded += (a,b)=>
             {
@@ -21,16 +22,20 @@ namespace Refinter
         }
         void InjectSence()
         {
-            foreach (var item in ReflectEx.workAssembly.GetTypes())
+            foreach (var assembly in ReflectEx.workAssemblies)
             {
-                if (item == typeof(IInterface) || interfaces.ContainsKey(item)) continue;
-                if (typeof(IInterface).IsAssignableFrom(item) && item.IsInterface)
+                foreach (var item in assembly.GetTypes())
                 {
-                    var instence = ReflectEx.Instance(item) as IInterface;
-                    if (instence != null)
-                        interfaces.Add(item, instence);
+                    if (item == typeof(IInterface) || interfaces.ContainsKey(item)) continue;
+                    if (typeof(IInterface).IsAssignableFrom(item) && item.IsInterface)
+                    {
+                        var instence = ReflectEx.Instance(item) as IInterface;
+                        if (instence != null)
+                            interfaces.Add(item, instence);
+                    }
                 }
             }
+            
             foreach (var obj in interfaces)
             {
                 if (injected.ContainsKey(obj.Key)) continue;
