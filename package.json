@@ -1,0 +1,10 @@
+{
+  "name": "com.refinter.basic",
+  "displayName": "Refinter",
+  "description": "反射接口实例依赖，自动注入",
+  "version": "1.0.0",
+  "unity": "2018.3",
+  "license": "MIT",
+  "dependencies": {
+  }
+}

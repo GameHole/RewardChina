@@ -7,14 +7,14 @@ namespace Refinter
 {
     public static class ReflectEx
     {
-        static Assembly _workAssembly;
-        public static Assembly workAssembly
+        static Assembly[] _workAssemblies;
+        public static Assembly[] workAssemblies
         {
             get
             {
-                if (_workAssembly == null)
+                if (_workAssemblies == null)
                     LoadCSharp();
-                return _workAssembly;
+                return _workAssemblies;
             }
         }
         public static void Inject(object obj, object inter)
@@ -60,24 +60,39 @@ namespace Refinter
         }
         public static Type FindImpl(Type inter)
         {
-            foreach (var item in workAssembly.GetTypes())
+            foreach (var assembly in workAssemblies)
             {
-                if (isIgnore(item)) continue;
-                if (inter.IsAssignableFrom(item))
-                    return item;
+                foreach (var item in assembly.GetTypes())
+                {
+                    if (isIgnore(item)) continue;
+                    if (inter.IsAssignableFrom(item))
+                        return item;
+                }
             }
             return null;
         }
         static void LoadCSharp()
         {
+            List<Assembly> assemblies = new List<Assembly>();
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                if (assembly.GetName().Name == "Assembly-CSharp")
-                {
-                    _workAssembly = assembly;
-                    return;
-                }
+                if (isIgnoredAssembliy(assembly)) continue;
+                assemblies.Add(assembly);
             }
+            _workAssemblies = assemblies.ToArray();
+        }
+        static string[] ignoreStr = new string[]
+        {
+            "mscorlib","UnityEngine","UnityEngine.","UnityEditor","UnityEditor.","Newtonsoft.","SyntaxTree.","ExCSS.","Microsoft.","Unity.","System","System.","Mono.","nunit.","netstandard"
+        };
+        static bool isIgnoredAssembliy(Assembly assembly)
+        {
+            for (int i = 0; i < ignoreStr.Length; i++)
+            {
+                if (assembly.FullName.Contains(ignoreStr[i]))
+                    return true;
+            }
+            return false;
         }
         static bool isIgnore(Type type)
         {
