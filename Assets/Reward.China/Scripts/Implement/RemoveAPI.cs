@@ -27,7 +27,7 @@ namespace RewardChina
             this.type = type;
             JObject jo = new JObject();
             jo.Add("openId", info.openid);
-            jo.Add("game", Application.identifier);
+            jo.Add("game", info.package);
             JObject retJo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(url.getApi("reward"), JsonConvert.SerializeObject(jo)));
             var ret = new RemoteMoneyInfo();
             int code = retJo.Value<int>("code");
@@ -62,7 +62,7 @@ namespace RewardChina
         {
             JObject jo = new JObject();
             jo.Add("openId", info.openid);
-            jo.Add("game", Application.identifier);
+            jo.Add("game", info.package);
             jo.Add("type", typeStr[type]);
             jo.Add("coin", Gold);
             JObject retJo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(url.getApi("setgold"), JsonConvert.SerializeObject(jo)));

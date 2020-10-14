@@ -15,7 +15,7 @@ namespace RewardChina
         {
             JObject jo = new JObject();
             jo.Add("openId", info.openid);
-            jo.Add("game", Application.identifier);
+            jo.Add("game", info.package);
             jo.Add("withdrawAmount", expectMoney);
             var resJo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(url.getApi("withdraw"), jo.ToString()));
             var accInfo = new AccountInfo();

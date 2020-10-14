@@ -11,6 +11,8 @@ namespace RewardChina
     interface INetInfo : IInterface
     {
         string openid { get; set; }
+        string version { get; set; }
+        string package { get; set; }
         //string GetJson();
     }
    
