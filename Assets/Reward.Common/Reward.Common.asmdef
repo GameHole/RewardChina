@@ -1,0 +1,15 @@
+{
+    "name": "Reward.Common",
+    "references": [
+        "GUID:9eabb7fb16a32a142a87cd461b3444f3"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

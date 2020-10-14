@@ -22,6 +22,7 @@ namespace RewardChina
                 head.sprite = defHead;
             }
             nickTxt.text = info.nick;
+            //Debug.Log($"nick::{info.nick}");
         }
     }
 }

@@ -15,6 +15,7 @@ namespace RewardChina
         public async void Show()
         {
             var info = await remote.GetGold(0);
+            Debug.Log($"isShow::{info.isShow}");
             if (!info.isShow) return;
             dialog.Open(info.money);
             rewardBtn.ShowBtnType(0);

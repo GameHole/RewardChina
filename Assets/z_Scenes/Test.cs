@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RewardChina;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Test : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Test : MonoBehaviour
             if (await login.Login())
             {
                 Debug.Log(data.money);
+                SceneManager.LoadScene(1);
             }
             //Debug.Log("aid::" + UniqueId.GetAndroidId());
             //Debug.Log("did::" + UniqueId.GetDeviceId());

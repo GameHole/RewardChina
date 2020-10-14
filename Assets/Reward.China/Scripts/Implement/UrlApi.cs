@@ -31,7 +31,7 @@ namespace RewardChina
             }
             usls.Add("login", "smAPI/sm/login");
             usls.Add("reward", "smAPI/inspire/config");
-            usls.Add("setgold", "smAPI/sm/getcoin");
+            usls.Add("setgold", "smAPI/inspire/getcoin");
             usls.Add("getgold", "smAPI/sm/userdetails");
             usls.Add("update", "smAPI/sm/userinfo");
             usls.Add("withdraw", "smAPI/sm/userinfo");
