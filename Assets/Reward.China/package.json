@@ -1,0 +1,10 @@
+{
+  "name": "com.reward.china",
+  "displayName": "Reward China SKD",
+  "description": "Reward China SKD Package",
+  "version": "1.0.0",
+  "unity": "2018.3",
+  "license": "MIT",
+  "dependencies": {
+  }
+}
