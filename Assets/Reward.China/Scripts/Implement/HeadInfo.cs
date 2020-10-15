@@ -5,29 +5,30 @@ using UnityEngine;
 public class HeadInfo : IHeadInfo
 {
     IHttp http;
+    IRemoteImageLoader loader;
     public string nick { get; set; }
     public string headUrl { get; set; }
     Sprite sprite;
     bool isInited;
-    void tryInit()
+    async void tryInit()
     {
         if (isInited) return;
         isInited = true;
-        loadHead();
+        sprite = await loader.LoadImageAsync(headUrl);
     }
-    async void loadHead()
-    {
-        if (string.IsNullOrEmpty(headUrl)) return;
-        var data = await http.GetBytes(headUrl);
-        sprite = convertSprite(data);
-    }
-    Sprite convertSprite(byte[] data)
-    {
-        Texture2D texture = new Texture2D(512, 512, UnityEngine.Experimental.Rendering.DefaultFormat.LDR, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
-        texture.LoadImage(data);
-        Sprite sprite = Sprite.Create(texture, new Rect() { x = 0, y = 0, width = texture.width, height = texture.height }, new Vector2(0.5f, 0.5f));
-        return sprite;
-    }
+    //async void loadHead()
+    //{
+    //    if (string.IsNullOrEmpty(headUrl)) return;
+    //    var data = await http.GetBytes(headUrl);
+    //    sprite = convertSprite(data);
+    //}
+    //Sprite convertSprite(byte[] data)
+    //{
+    //    Texture2D texture = new Texture2D(512, 512, UnityEngine.Experimental.Rendering.DefaultFormat.LDR, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
+    //    texture.LoadImage(data);
+    //    Sprite sprite = Sprite.Create(texture, new Rect() { x = 0, y = 0, width = texture.width, height = texture.height }, new Vector2(0.5f, 0.5f));
+    //    return sprite;
+    //}
     public bool tryGetHeadImg(out Sprite sprite)
     {
         tryInit();
