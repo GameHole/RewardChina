@@ -72,7 +72,7 @@ namespace RewardChina
             mover.start = mover.transform.localPosition;
             mover.dir = pageBtns[id].transform.localPosition - mover.transform.localPosition;
             mover.dir.y = mover.dir.z = 0;
-            mover.increase = 0;
+            mover.GetComponent<CurveRunner>().increase = 0;
         }
     }
 }
