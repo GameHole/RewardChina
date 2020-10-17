@@ -5,9 +5,16 @@ namespace RewardChina
 {
     public class MoneyForUI : IMoneyForUI
     {
+        public int conversionRatio { get; set; } = 10000;
+
         public float ToFloat(int money)
         {
-            return (float)money / 10000;
+            return (float)money /conversionRatio;
+        }
+
+        public int ToMoney(float money)
+        {
+            return (int)(money * conversionRatio);
         }
 
         public string ToString(int money)

@@ -16,8 +16,8 @@ public class TimeCount : MonoBehaviour
             add += Time.deltaTime;
             if (add >= time)
             {
-                action?.Invoke();
                 isRun = false;
+                action?.Invoke();
             }
         }
     }
