@@ -1,0 +1,17 @@
+{
+    "name": "Reward.China",
+    "references": [
+        "GUID:6b9cebca8a8fb2449bf9ac1cab0eaf42",
+        "GUID:9eabb7fb16a32a142a87cd461b3444f3",
+        "GUID:40042e6d4e586194e881dcb8604060e6"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RewardChina;
+using Reward.China;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
