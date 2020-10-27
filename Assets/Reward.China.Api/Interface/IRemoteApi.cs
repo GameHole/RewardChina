@@ -13,7 +13,7 @@ namespace Reward.China
     public interface IRemoteApi:IInterface
     {
         Task<RemoteMoneyInfo> GetGold(int type);
-        Task<int> SetGold(int Gold);
+        Task<int> SetGold(int Gold, int extraType = -1);
     }
 }
 

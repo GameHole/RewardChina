@@ -7,13 +7,13 @@ namespace Reward.China
     public interface ILogin : IInterface
     {
         Task<bool> Login();
+        Task GetGold();
     }
-    interface INetInfo : IInterface
+    public interface INetInfo : IInterface
     {
         string openid { get; set; }
         string version { get; set; }
         string package { get; set; }
-        //string GetJson();
     }
 }
 

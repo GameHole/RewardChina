@@ -12,6 +12,7 @@ namespace Reward.China
         IMsgDialog dialog;
         IToast toast;
         IWithdrawApi api;
+        IMoneyList list;
         public Transform parent;
         public MoneyItem item;
         public Animator anim;
@@ -33,7 +34,32 @@ namespace Reward.China
         {
             if (isInited) return;
             isInited = true;
-            for (int i = 0; i < 6; i++)
+            LoadMoney();
+            closeBtn.onClick.AddListener(Close);
+            withdrawalBtn.onClick.AddListener(async() =>
+            {
+                if (items.Count == 0)
+                {
+                    dialog.Show("暂时无法提现");
+                    return;
+                }
+                if (user.money < items[currId].dia)
+                {
+                    dialog.Show("金币不足，快去赚金币吧~");
+                    return;
+                }
+                var res = await api.Withdraw(items[currId].dia);
+                if (res.isSuccess)
+                {
+                    toast.Show($"恭喜提现{items[currId].money.text}");
+                }
+            });
+        }
+        async void LoadMoney()
+        {
+            await list.Init();
+            var infos = list.GetMoneys();
+            for (int i = 0; i < infos.Count; i++)
             {
                 var clone = item.Instantiate(parent);
                 clone.transform.localScale = Vector3.one;
@@ -46,23 +72,9 @@ namespace Reward.China
                 });
                 clone.newUser.SetActive(i == 0);
                 clone.select.SetActive(false);
-                clone.dia = 5000*(i+1);
+                clone.dia = infos[i];
                 clone.people.SetValues("1000");
             }
-            closeBtn.onClick.AddListener(Close);
-            withdrawalBtn.onClick.AddListener(async() =>
-            {
-                if(user.money < items[currId].dia)
-                {
-                    dialog.Show("金币不足，快去赚金币吧~");
-                    return;
-                }
-                var res = await api.Withdraw(items[currId].dia);
-                if (res.isSuccess)
-                {
-                    toast.Show($"恭喜提现{items[currId].money.text}");
-                }
-            });
         }
         public void Close()
         {

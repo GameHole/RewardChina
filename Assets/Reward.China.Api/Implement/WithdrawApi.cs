@@ -12,16 +12,17 @@ namespace Reward.China
         IUrlApi url;
         INetInfo info;
         IUserData data;
+        IMsgLog log;
         public async Task<AccountInfo> Withdraw(int expectMoney)
         {
             JObject jo = new JObject();
             jo.Add("openId", info.openid);
             jo.Add("game", info.package);
             jo.Add("amount", expectMoney);
-            jo.Add("configId", 1);
-            Debug.Log(jo);
+            jo.Add("configId", 0);
+            log?.Log(jo);
             var resJo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(url.getApi("withdraw"), jo.ToString()));
-            Debug.Log(resJo);
+            log?.Log(resJo);
             var accInfo = new AccountInfo();
             accInfo.isSuccess = resJo.Value<int>("code") == 200;
             if (accInfo.isSuccess)

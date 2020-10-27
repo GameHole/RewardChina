@@ -20,7 +20,7 @@ public class Test : MonoBehaviour
             {
                 Debug.Log(data.money);
                 SceneManager.LoadScene(1);
-                data.money = 10000;
+                //data.money = 10000;
             }
             //Debug.Log("aid::" + UniqueId.GetAndroidId());
             //Debug.Log("did::" + UniqueId.GetDeviceId());
