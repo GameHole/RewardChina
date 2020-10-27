@@ -7,7 +7,7 @@ namespace Reward.China
     {
         public string basicUrl = "http://47.114.54.66:29131/";
         public string testToken = "b8b0fad7-74e0-4414-b974-bf2036fdcf13";
-        public string releaseToken = "";
+        public string releaseToken = "b8b0fad7-74e0-4414-b974-bf2036fdcf13";
         string token;
         Dictionary<string, string> usls = new Dictionary<string, string>();
         public string getApi(string key)
@@ -34,8 +34,9 @@ namespace Reward.China
             usls.Add("setgold", "smAPI/inspire/getcoin");
             usls.Add("getgold", "smAPI/sm/userdetails");
             usls.Add("update", "smAPI/sm/userinfo");
-            usls.Add("withdraw", "smAPI/sm/withdraw");
-            usls.Add("recordinfo", "smAPI/sm/orders");
+            usls.Add("withdraw", "smAPI/sm/wxpay");
+            usls.Add("recordinfo", "smAPI/sm/withdrawhis");
+            usls.Add("moneylist", "smAPI/sm/goods");
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Reward.China
         IUrlApi url;
         IMoneyForUI forUI;
         INetInfo net;
+        IToast toast;
         public async Task<List<RecordInfo>> GetInfos(int id)
         {
             JObject send = new JObject();
@@ -26,11 +27,18 @@ namespace Reward.China
                 for (int i = 0; i < array.Count; i++)
                 {
                     var item = array[i];
-                    RecordInfo info = new RecordInfo();
-                    info.money = item.Value<int>("amount");
-                    info.time = DateTime.FromFileTime(item.Value<long>("createTime"));
-                    res.Add(info);
+                    if (item.Value<int>("status") == id)
+                    {
+                        RecordInfo info = new RecordInfo();
+                        info.money = item.Value<int>("amount");
+                        info.time = DateTime.FromFileTime(item.Value<long>("createTime"));
+                        res.Add(info);
+                    }
                 }
+            }
+            else
+            {
+                toast?.Show(recv.Value<string>("message"));
             }
             return res;
         }

@@ -13,11 +13,10 @@ namespace Reward.China
         INetInfo info;
         IUrlApi api;
         IHttp http;
+        IMsgLog log;
         TaskCompletionSource<bool> tcs;
         public Task<bool> Login()
         {
-            info.version = Application.version;
-            info.package = Application.identifier;
             if (tcs == null || tcs.Task.IsCompleted)
                 tcs = new TaskCompletionSource<bool>();
             WX.onRecvMsg += onRecv;
@@ -35,11 +34,10 @@ namespace Reward.China
                     json.Add("code", dic["code"]);
                     json.Add("version", info.version);
                     json.Add("game", info.package);
-                    json.Add("device", UniqueId.GetAndroidId());
-                    json.Add("IMEI", UniqueId.GetDeviceId());
+                    json.Add("deviceId", UniqueId.GetUniteId());
 
                     var jo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(api.getApi("login"), json.ToString()));
-                    Debug.Log(jo);
+                    log?.Log(jo);
                     int code = jo.Value<int>("code");
                     if (code == 200)
                     {
@@ -47,24 +45,27 @@ namespace Reward.China
                         head.nick = jo["data"]["token"].Value<string>("nickname");
                         head.headUrl = jo["data"]["token"].Value<string>("avatar");
                         await GetGold();
-                        UpdateInfo();
+                        //UpdateInfo();
                     }
                     tcs.SetResult(code == 200);
                 }
             }
             catch (System.Exception e)
             {
-                Debug.Log(e);
+                log?.Log(e);
                 throw;
             }
             
         }
-        async Task GetGold()
+        public async Task GetGold()
         {
             JObject json = new JObject();
             json.Add("openId", info.openid);
             json.Add("game", info.package);
+            json.Add("device", UniqueId.GetUniteId());
+            log?.Log(json);
             var jo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(api.getApi("getgold"), json.ToString()));
+            log?.Log(jo);
             if (jo.Value<int>("code") == 200)
             {
                 user.money = jo["data"].Value<int>("amount");
@@ -77,7 +78,7 @@ namespace Reward.China
             json.Add("nickname", head.nick);
             json.Add("gameType", info.package);
             var jo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(api.getApi("update"), json.ToString()));
-            Debug.Log(jo);
+            log?.Log(jo);
         }
     }
    
@@ -85,8 +86,8 @@ namespace Reward.China
     public class NetInfo : INetInfo
     {
         public string openid { get; set; }
-        public string version { get; set; }
-        public string package { get; set; }
+        public string version { get; set; } = Application.version;
+        public string package { get; set; } = Application.identifier;
     }
 }
 

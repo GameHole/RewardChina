@@ -13,4 +13,11 @@ public class UniqueId
     {
         return _unique.CallStatic<string>("getAndroidId", "mark");
     }
+    public static string GetUniteId()
+    {
+        string did = GetAndroidId();
+        if (string.IsNullOrEmpty(did))
+            did = GetDeviceId();
+        return did;
+    }
 }

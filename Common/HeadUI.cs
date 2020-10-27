@@ -21,7 +21,8 @@ namespace Reward.China
             {
                 head.sprite = defHead;
             }
-            nickTxt.text = info.nick;
+            if (nickTxt)
+                nickTxt.text = info.nick;
             //Debug.Log($"nick::{info.nick}");
         }
     }
