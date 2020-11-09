@@ -14,26 +14,33 @@ namespace Reward.China
         IUserData data;
         IMsgLog log;
         int type;
+        int id;
         string[] typeStr = new string[]
         {
             "normalPay","multiPay","morePay"
         };
-        public async Task<RemoteMoneyInfo> GetGold(int type)
+        public async Task<RemoteMoneyInfo> GetGold(int type,string configName)
         {
             this.type = type;
             JObject jo = new JObject();
-            jo.Add("openId", info.openid);
+            if (!string.IsNullOrEmpty(info.openid))
+                jo.Add("openId", info.openid);
             jo.Add("game", info.package);
+            jo.Add("device", info.deviceId);
+            jo.Add("configName", configName);
+            log?.Log(jo);
             JObject retJo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(url.getApi("reward"), JsonConvert.SerializeObject(jo)));
             log?.Log(retJo);
             var ret = new RemoteMoneyInfo();
             int code = retJo.Value<int>("code");
+            ret.errcode = code;
             ret.isShow = code == 200;
             if (ret.isShow)
             {
                 var dataJo = retJo["data"];
+                id = dataJo.Value<int>("configId");
                 ret.money = dataJo.Value<int>("normalPay");
-                ret.other = dataJo.Value<int>("multiPay") / ret.money;
+                ret.other = dataJo.Value<int>("multiPay");
                 switch (type)
                 {
                     case 2:
@@ -53,20 +60,23 @@ namespace Reward.China
         //{
         //    return types[type];
         //}
-        public async Task<int> SetGold(int Gold,int extraType)
+        public async Task<bool> SetGold(int Gold, int extraType)
         {
             JObject jo = new JObject();
-            jo.Add("openId", info.openid);
+            if (!string.IsNullOrEmpty(info.openid))
+                jo.Add("openId", info.openid);
             jo.Add("game", info.package);
             jo.Add("type", typeStr[extraType < 0 ? type : extraType]);
+            jo.Add("deviceId", info.deviceId);
             jo.Add("coin", Gold);
+            jo.Add("configId", id);
             log?.Log(jo);
             JObject retJo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(url.getApi("setgold"), JsonConvert.SerializeObject(jo)));
             log?.Log(retJo);
-            int code = retJo.Value<int>("code") - 200;
-            if (code == 0)
+            int code = retJo.Value<int>("code");
+            if (code == 200)
                 data.money = retJo["data"].Value<int>("total");
-            return code;
+            return code == 200;
         }
     }
 }

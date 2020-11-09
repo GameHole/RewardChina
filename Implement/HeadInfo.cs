@@ -10,10 +10,18 @@ namespace Reward.China
         public string nick { get; set; }
         public string headUrl { get; set; }
         Sprite sprite;
+        bool isInited;
         async void tryInit()
         {
-            if (sprite == null)
-                sprite = await loader.LoadImageAsync(headUrl);
+            if (string.IsNullOrEmpty(headUrl))
+            {
+                isInited = false;
+                sprite = null;
+                return;
+            }
+            if (isInited) return;
+            isInited = true;
+            sprite = await loader.LoadImageAsync(headUrl);
         }
         //async void loadHead()
         //{
