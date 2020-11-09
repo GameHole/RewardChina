@@ -12,6 +12,7 @@ namespace Reward.China
     public interface INetInfo : IInterface
     {
         string openid { get; set; }
+        string deviceId { get; set; }
         string version { get; set; }
         string package { get; set; }
     }

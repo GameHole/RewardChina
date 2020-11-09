@@ -6,5 +6,6 @@ namespace Reward.China
     {
         Task Init();
         List<int> GetMoneys();
+        bool tryGetId(int money, out int id);
     }
 }

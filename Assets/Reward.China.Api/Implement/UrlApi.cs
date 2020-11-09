@@ -37,6 +37,8 @@ namespace Reward.China
             usls.Add("withdraw", "smAPI/sm/wxpay");
             usls.Add("recordinfo", "smAPI/sm/withdrawhis");
             usls.Add("moneylist", "smAPI/sm/goods");
+            usls.Add("counter_inc", "smAPI/inspire/movements");
+            usls.Add("counter_get", "smAPI/inspire/getmove");
         }
     }
 }

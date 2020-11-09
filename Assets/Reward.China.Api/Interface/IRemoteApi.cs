@@ -9,11 +9,12 @@ namespace Reward.China
         public bool isShow;
         public int money;
         public int other;
+        public int errcode;
     }
     public interface IRemoteApi:IInterface
     {
-        Task<RemoteMoneyInfo> GetGold(int type);
-        Task<int> SetGold(int Gold, int extraType = -1);
+        Task<RemoteMoneyInfo> GetGold(int type, string configName = "default");
+        Task<bool> SetGold(int Gold, int extraType = -1);
     }
 }
 

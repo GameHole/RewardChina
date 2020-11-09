@@ -17,9 +17,9 @@ namespace Reward.China
             return (int)(money * conversionRatio);
         }
 
-        public string ToString(int money)
+        public string ToString(int money,int last=2)
         {
-            return ToFloat(money).ToString("f2");
+            return ToFloat(money).ToString("f"+ last);
         }
     }
 }
