@@ -18,11 +18,11 @@ namespace Reward.China
         {
             return moneys;
         }
-        bool isInited;
+        //bool isInited;
         public async Task Init()
         {
-            if (isInited) return;
-            isInited = true;
+            //if (isInited) return;
+            //isInited = true;
             var send = new JObject();
             send.Add("game", info.package);
             send.Add("openId", info.openid);
@@ -35,8 +35,9 @@ namespace Reward.China
                 {
                     var item = array[i];
                     int m = item.Value<int>("amount");
+                    if (money2id.ContainsKey(m)) continue;
                     moneys.Add(m);
-                    money2id.Add(m, item.Value<int>("openId"));
+                    money2id.Add(m, item.Value<int>("id"));
                 }
             }
             else

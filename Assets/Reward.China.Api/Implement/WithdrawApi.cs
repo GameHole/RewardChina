@@ -38,8 +38,8 @@ namespace Reward.China
             log?.Log(jo);
             var resJo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(url.getApi("withdraw"), jo.ToString()));
             log?.Log(resJo);
-
-            accInfo.isSuccess = resJo.Value<int>("code") == 200;
+            accInfo.errCode = resJo.Value<int>("code");
+            accInfo.isSuccess = accInfo.errCode == 200;
             if (accInfo.isSuccess)
             {
                 data.money -= expectMoney;

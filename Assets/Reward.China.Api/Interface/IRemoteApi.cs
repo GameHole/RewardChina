@@ -13,6 +13,7 @@ namespace Reward.China
     }
     public interface IRemoteApi:IInterface
     {
+        int errcode { get; }
         Task<RemoteMoneyInfo> GetGold(int type, string configName = "default");
         Task<bool> SetGold(int Gold, int extraType = -1);
     }

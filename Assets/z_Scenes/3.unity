@@ -1151,8 +1151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   did: TestDeviceId---2
-  oid: oXMto1LOSU0skZmaqLu3bAkQIDZE
-  counterID: 2
+  oid: oKmPV560zfgPhUXsVezFwXGsaENI
+  counterID: 1
 --- !u!1 &1185627142
 GameObject:
   m_ObjectHideFlags: 0

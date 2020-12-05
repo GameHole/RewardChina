@@ -31,7 +31,7 @@ namespace Reward.China
                     {
                         RecordInfo info = new RecordInfo();
                         info.money = item.Value<int>("amount");
-                        info.time = DateTime.FromFileTime(item.Value<long>("createTime"));
+                        info.time = GetLocalTime(item.Value<long>("createTime"));
                         res.Add(info);
                     }
                 }
@@ -41,6 +41,10 @@ namespace Reward.China
                 toast?.Show(recv.Value<string>("message"));
             }
             return res;
+        }
+        public DateTime GetLocalTime(long v)
+        {
+            return new DateTime(621355968000000000 + v * 10000).ToLocalTime();
         }
     }
 }

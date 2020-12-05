@@ -19,6 +19,9 @@ namespace Reward.China
         {
             "normalPay","multiPay","morePay"
         };
+
+        public int errcode { get; private set; }
+
         public async Task<RemoteMoneyInfo> GetGold(int type,string configName)
         {
             this.type = type;
@@ -33,7 +36,7 @@ namespace Reward.China
             log?.Log(retJo);
             var ret = new RemoteMoneyInfo();
             int code = retJo.Value<int>("code");
-            ret.errcode = code;
+            errcode = ret.errcode = code;
             ret.isShow = code == 200;
             if (ret.isShow)
             {
@@ -74,6 +77,7 @@ namespace Reward.China
             JObject retJo = JsonConvert.DeserializeObject<JObject>(await http.PostStr(url.getApi("setgold"), JsonConvert.SerializeObject(jo)));
             log?.Log(retJo);
             int code = retJo.Value<int>("code");
+            errcode = code;
             if (code == 200)
                 data.money = retJo["data"].Value<int>("total");
             return code == 200;

@@ -9,6 +9,7 @@ namespace Reward.China
         public string msg;
         public int lastMoney;
         public int withdrawedMoney;
+        public int errCode;
     }
     public interface IWithdrawApi : IInterface
     {

@@ -20,9 +20,9 @@ namespace Reward.China
             send.Add("game", info.package);
             send.Add("deviceId", info.deviceId);
             //Debug.Log(Url.getApi("counter_get"));
-            log?.Log(send);
+            log?.Log("GetCount send::"+send);
             var recv = JsonConvert.DeserializeObject<JObject>(await http.PostStr(Url.getApi("counter_get"), send.ToString()));
-            log?.Log(recv);
+            log?.Log("GetCount recv::" + recv);
             int code = recv.Value<int>("code");
             if (code == 200)
             {

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Reward.China;
+using System;
+
 namespace Default
 {
 	public class TestCounter:MonoBehaviour
@@ -15,6 +17,9 @@ namespace Default
         private void Awake()
         {
             Log.debug = true;
+            Debug.Log(new DateTime(1970, 1, 1).Ticks);
+            DateTime date = DateTime.FromFileTimeUtc(1605001019000);
+            Debug.Log(date);
         }
         public async void Inc()
         {
