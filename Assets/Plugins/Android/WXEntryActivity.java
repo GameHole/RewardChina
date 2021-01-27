@@ -1,4 +1,4 @@
-package com.aiqi.cn.superarsenal.gunshoot.wxapi;
+package com.aiqi.cn.whatsthesong.guess.wxapi;
 
 import android.app.Activity;
 import android.os.Bundle;
